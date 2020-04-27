@@ -1,0 +1,58 @@
+<section>
+  <h1 class="mt-4" style="text-align: center; color: #e04141cf;">Weather Forecast</h1>
+  <div class="container">
+    <form [formGroup]="locationForm" (ngSubmit)="onSubmit()">
+      <div class="form-group mt-5">
+        <input class="form-control" type="text" formControlName="location" placeholder="City name...">
+      </div>
+      <button class="btn btn-success" [disabled]="!locationForm.valid" type="submit"
+      style="background-color: #e04141cf; border: unset;">Search</button>
+    </form>
+
+
+    <div class="result mt-5" [ngStyle]="{'visibility':!displayInfo? 'hidden':'visible'}">
+      <div class="row" style="place-content: space-around;">
+        <!-- <div class="col-5 basicInfo" [ngStyle]="{'background-color':!nightTime?'#afa2a266;':'#afa2a266;'}"> -->
+          <div class="col-md-5 mt-3 basicInfo">
+          <h2 class="textCustom">{{weatherData.name + ',' + weatherData.sys.country}}</h2>
+          <hr style="height: 1px; background-color: rgba(206, 198, 198, 0.815);">
+
+          <div id="img">
+            <img src="http://openweathermap.org/img/wn/{{weatherData.weather[0].icon}}@2x.png">
+          </div>
+          <p class="textCustom">{{weatherData.weather[0].main}}</p>
+          <p class="textCustom">{{(weatherData.main.temp - 273.15) | number:'1.0-0'}} &#176;C</p>
+          <p class="title">Feel like: {{(weatherData.main.feels_like - 273.15) | number:'1.0-0'}}&#176;C</p>
+          <p class="title">Description: {{weatherData.weather[0].description}}</p>
+          <div class="row">
+            <div class="col-sm-6">
+              <p class="title">Sunrise: {{ weatherData.sys.sunrise* 1000 | date:'HH:mm'}}</p>
+            </div>
+            <div class="col-sm-6">
+              <p class="title">Sunset: {{ weatherData.sys.sunset* 1000 | date:'HH:mm'}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-5 report "[ngStyle]="{'background-color':!nightTime?'#afa2a266;':'#afa2a266;'}"> -->
+          <div class="col-md-5 mt-3 report">
+          <h2>Forecast Report</h2>
+          <hr style="height: 1px; background-color: rgba(206, 198, 198, 0.815);">
+          <p><strong>Max temp:</strong> {{(weatherData.main.temp_max - 273.15) | number:'1.0-0'}} &#176;C</p>
+          <p><strong>Min temp:</strong> {{(weatherData.main.temp_min - 273.15) | number:'1.0-0'}} &#176;C</p>
+          <p><strong>Humidity:</strong> {{weatherData.main.humidity}}%</p>
+          <p><strong>Wind degree:</strong> {{weatherData.wind.deg}} degrees</p>
+          <p><strong>Wind speed:</strong> {{weatherData.wind.speed}} meter/sec</p>
+          <p><strong>Pressure:</strong> {{weatherData.main.pressure}} hPa</p>
+          <p><strong>Longitude:</strong> {{weatherData.coord.lon}}</p>
+          <p><strong>Latitude:</strong> {{weatherData.coord.lat}} </p>
+          <!-- <p> Time zone: {{weatherData.timezone | date:'dd/MM/yyyy'}}</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4"></div>
+
+
+</section>
+
